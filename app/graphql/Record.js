@@ -1,8 +1,8 @@
 'use strict';
-module.exports = (app, { composeWithMongoose, GraphqlCompose }) => {
+module.exports = ({ app }, { GraphqlCompose }) => {
   const { schemaComposer } = GraphqlCompose;
-  const customizationOptions = { description: '操作日志' };
-  const RecordTC = composeWithMongoose(app.model.Record, customizationOptions);
+  const RecordTC = app.graphqlTC.RecordTC;
+  RecordTC.setDescription('操作日志');
 
   schemaComposer.Query.addFields({
     RecordById: RecordTC.getResolver('findById'),
